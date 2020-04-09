@@ -17,13 +17,33 @@ function App() {
 	}, [isRunning]);
 
 	return (
-		<div className="App">
-			<header className="App-header">
+		<div className={styles.App}>
+			<header className={styles.title}>
 				<h1>React Timer</h1>
 			</header>
-			<p>{seconds}</p>
-			<button onClick={() => setIsRunning(true)}>Play</button>
-			<button onClick={() => setIsRunning(false)}>Pause</button>
+			<div className={styles.clock}>
+				<div className={styles.time}>
+					<p>{seconds}</p>
+				</div>
+			</div>
+			{isRunning ? (
+				<button className={styles.button} onClick={() => setIsRunning(false)}>
+					Pause
+				</button>
+			) : (
+				<button className={styles.button} onClick={() => setIsRunning(true)}>
+					Play
+				</button>
+			)}
+			<button
+				className={styles.button}
+				onClick={() => {
+					setIsRunning(false);
+					setSeconds(0);
+				}}
+			>
+				Reset
+			</button>
 		</div>
 	);
 }
