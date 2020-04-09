@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import styles from "./App.module.scss";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [seconds, setSeconds] = useState(0);
+	const [isRunning, setIsRunning] = useState(true);
+
+	useEffect(() => {
+		console.log("seconds", seconds);
+		if (isRunning) {
+			const id = window.setInterval(
+				() => setSeconds((seconds) => seconds + 1),
+				1000
+			);
+			return () => window.clearInterval(id);
+		}
+	}, [isRunning]);
+
+	return (
+		<div className="App">
+			<header className="App-header">
+				<h1>React Timer</h1>
+			</header>
+			<p>{seconds}</p>
+			<button onClick={() => setIsRunning(true)}>Play</button>
+			<button onClick={() => setIsRunning(false)}>Pause</button>
+		</div>
+	);
 }
 
 export default App;
